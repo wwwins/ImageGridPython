@@ -3,6 +3,8 @@
 #
 # imageGrid.py
 # Split an image into grid
+# Usage:
+#   python imageGrid.py image.jpg 3x4
 #
 
 import sys
@@ -100,7 +102,7 @@ if __name__ == "__main__":
     div_x = int(sys.argv[2].split('x')[0])
     div_y = int(sys.argv[2].split('x')[1])
     for i in saveGrid(image_fn, div_x, div_y):
-        print("Del {} file".format(i))
-        os.remove(i)
+        print("Save {} file".format(i))
+        # os.remove(i)
 
 
