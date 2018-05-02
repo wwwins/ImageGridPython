@@ -18,9 +18,9 @@ def cropFromTL(image, div_x, div_y):
     6   7   8
 
     Arguments:
-        image {[type]} -- [description]
-        div_x {[type]} -- [description]
-        div_y {[type]} -- [description]
+        image {image} -- PIL image object
+        div_x {int} -- div x
+        div_y {int} -- div y
     """
 
     img_w, img_h = image.size
