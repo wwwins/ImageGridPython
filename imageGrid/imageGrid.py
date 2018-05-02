@@ -10,6 +10,7 @@
 import sys
 import os
 from PIL import Image
+from pathlib import Path
 
 def cropFromTL(image, div_x, div_y):
     """crop image from top-left
@@ -81,6 +82,8 @@ def saveGrid(image_fn, div_x, div_y):
     """
 
     
+    folder = Path('tmp')
+    folder.mkdir(exist_ok=True)
     images = []
     img = Image.open(image_fn)
     print('size:{}'.format(img.size))
@@ -93,8 +96,9 @@ def saveGrid(image_fn, div_x, div_y):
         # print(k,p)
         img = Image.new('RGB', (crop_w,crop_h), 255)
         img.paste(p)
-        img.save('grid-{}.jpg'.format(k))
-        images.append('grid-{}.jpg'.format(k))
+        fn = folder / 'grid-{}.jpg'.format(k)
+        img.save(fn)
+        images.append(fn)
     return images
 
 if __name__ == "__main__":
