@@ -1,13 +1,16 @@
 from setuptools import setup
+import re
 
-def readme():
-    with open('README.rst') as f:
-        return f.read()
+with open('imageGrid/__init__.py') as f:
+    version = re.search(r'__version__ = \'(.*?)\'', f.read()).group(1)
+
+with open('README.rst') as f:
+    readme = f.read()
 
 setup(name='imageGrid',
-      version='0.1.0',
+      version=version,
       description='Split an image into grid',
-      long_description=readme(),
+      long_description=readme,
       url='https://github.com/wwwins/ImageGridPython',
       author='wwwins',
       author_email='cphuang72@gmail.com',
