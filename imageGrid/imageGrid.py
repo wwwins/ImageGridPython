@@ -9,7 +9,7 @@
 
 import sys
 import os
-from PIL import Image
+from PIL import Image, ExifTags
 from pathlib import Path
 
 def cropFromTL(image, div_x, div_y):
@@ -69,6 +69,39 @@ def cropSquare(image, div_x):
             # yield box
             yield image.crop(box)
 
+def rotateByOrientation(image):
+    """rotate image by orientation
+    
+    Arguments:
+        image {image} -- PIL image object
+    
+    Returns:
+        image -- PIL image object
+    """
+
+    o = getOrientation(image)
+    if o == 3:
+        return image.rotate(180)
+    if o == 6:
+        return image.rotate(-90)
+    if o == 8:
+        return image.rotate(90)
+    return image
+
+def getOrientation(image):
+    """get image orientation
+    
+    Arguments:
+        image {image} -- PIL image object
+    
+    Returns:
+        int -- 1,3,6,8 or None
+    """
+
+    if image._getexif():
+        return image._getexif()[274]
+    return None
+    
 def saveGrid(image_fn, div_x, div_y):
     """save an image with grid
     
@@ -86,6 +119,7 @@ def saveGrid(image_fn, div_x, div_y):
     folder.mkdir(exist_ok=True)
     images = []
     img = Image.open(image_fn)
+    img = rotateByOrientation(img)
     print('size:{}'.format(img.size))
     img_w, img_h = img.size
     crop_w = crop_h = img_w//div_x
