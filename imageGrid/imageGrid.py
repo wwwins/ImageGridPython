@@ -116,7 +116,8 @@ def saveGrid(image_fn, div_x, div_y):
 
     
     folder = Path('tmp')
-    folder.mkdir(exist_ok=True)
+    if folder.exists() is not True:
+        folder.mkdir()
     images = []
     img = Image.open(image_fn)
     img = rotateByOrientation(img)
