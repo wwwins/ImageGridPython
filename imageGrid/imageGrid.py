@@ -99,7 +99,7 @@ def getOrientation(image):
     """
 
     if image._getexif():
-        return image._getexif()[274]
+        return image._getexif().get(274, None)
     return None
     
 def saveGrid(image_fn, div_x, div_y):
