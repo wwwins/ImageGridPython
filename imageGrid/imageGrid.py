@@ -129,9 +129,11 @@ def saveGrid(image_fn, div_x, div_y):
     # for k, p in enumerate(cropFromTL(img, div_x, div_y)):
     for k, p in enumerate(cropSquare(img, div_x)):
         # print(k,p)
+        numOfImages = div_x * div_y
+        widthOfNumber = len(str(numOfImages))
         img = Image.new('RGB', (crop_w,crop_h), 255)
         img.paste(p)
-        fn = folder / 'grid-{}.jpg'.format(k)
+        fn = folder / '{}.jpg'.format(str(numOfImages - k).zfill(widthOfNumber))
         img.save(fn)
         images.append(fn)
     return images
